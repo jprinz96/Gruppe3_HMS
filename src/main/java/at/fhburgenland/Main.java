@@ -1,6 +1,6 @@
 package at.fhburgenland;
 
-import at.fhburgenland.entity.Guest;
+import at.fhburgenland.entity.*;
 import jakarta.persistence.*;
 
 import java.util.List;

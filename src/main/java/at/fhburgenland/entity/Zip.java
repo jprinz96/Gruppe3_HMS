@@ -22,6 +22,7 @@ public class Zip {
 
     @OneToMany(mappedBy = "zip")
     private List<Guest> guests = new ArrayList<>();
+
     protected Zip() {
     }
 
