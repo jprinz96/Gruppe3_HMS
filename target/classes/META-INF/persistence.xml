@@ -35,7 +35,7 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/Gruppe3_HMS"/>
 
             <!-- Username für die DB -->
-            <property name="jakarta.persistence.jdbc.user" value="bswe"/>
+            <property name="jakarta.persistence.jdbc.user" value="postgres"/>
 
             <!-- Passwort für die DB -->
             <property name="jakarta.persistence.jdbc.password" value="fogl"/>
