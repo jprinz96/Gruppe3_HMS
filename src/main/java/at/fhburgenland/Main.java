@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
-        List<Guest> guests = em.createQuery("select * from guest", Guest.class)
+        List<Guest> guests = em.createNativeQuery("select * from guest", Guest.class)
                 .getResultList();
         for (Guest guest : guests) {
             System.out.println(guest);
