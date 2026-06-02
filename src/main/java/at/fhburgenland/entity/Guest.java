@@ -62,4 +62,19 @@ public class Guest {
         this.houseNumber = houseNumber;
         this.zip = zip;
     }
+
+    @Override
+    public String toString() {
+        return "Guest{" +
+                "guestId='" + guestId + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", birthdate=" + birthdate +
+                ", email='" + email + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", street='" + street + '\'' +
+                ", houseNumber='" + houseNumber + '\'' +
+                ", zip=" + zip +
+                '}';
+    }
 }
