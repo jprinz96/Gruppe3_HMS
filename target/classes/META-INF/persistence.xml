@@ -5,5 +5,50 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-            <!-- Create Persistence-Unit -->
+    <!-- Create Persistence-Unit -->
+    <persistence-unit name="Gruppe3_HMS" transaction-type="RESOURCE_LOCAL">
+        <!-- Entity Classes -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>at.fhburgenland.entity.Event</class>
+        <class>at.fhburgenland.entity.Guest</class>
+        <class>at.fhburgenland.entity.Room</class>
+        <class>at.fhburgenland.entity.Staff</class>
+        <class>at.fhburgenland.entity.Invoice</class>
+        <class>at.fhburgenland.entity.Maintenance</class>
+        <class>at.fhburgenland.entity.Reservation</class>
+        <class>at.fhburgenland.entity.Service</class>
+        <class>at.fhburgenland.entity.ServiceBooking</class>
+        <class>at.fhburgenland.entity.Zip</class>
+        <class>at.fhburgenland.entity.Zip</class>
+
+        <!-- Enums -->
+        <class>at.fhburgenland.enums.EventStatus</class>
+        <class>at.fhburgenland.enums.MaintenanceStatus</class>
+        <class>at.fhburgenland.enums.PaymentStatus</class>
+        <class>at.fhburgenland.enums.ReservationStatus</class>
+        <class>at.fhburgenland.enums.RoomCategory</class>
+
+        <properties>
+            <!-- Driver für die DB -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+
+            <!-- URL zur DB -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/dbjava"/>
+
+            <!-- Username für die DB -->
+            <property name="jakarta.persistence.jdbc.user" value="bswe"/>
+
+            <!-- Passwort für die DB -->
+            <property name="jakarta.persistence.jdbc.password" value="fogl"/>
+
+            <!-- Dialekt für die DB -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+
+
+    </persistence-unit>
+
 </persistence>
