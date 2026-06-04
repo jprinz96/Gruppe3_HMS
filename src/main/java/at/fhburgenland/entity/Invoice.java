@@ -1,5 +1,6 @@
 package at.fhburgenland.entity;
 
+import at.fhburgenland.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,12 +35,12 @@ public class Invoice {
 
     @Setter
     @Column(name = "paymentstatus", nullable = false, length = 20)
-    private String paymentStatus;
+    private PaymentStatus paymentStatus;
 
     protected Invoice() {
     }
 
-    public Invoice(Reservation reservation, LocalDate invoiceDate, BigDecimal totalAmountEur, String paymentStatus) {
+    public Invoice(Reservation reservation, LocalDate invoiceDate, BigDecimal totalAmountEur,  PaymentStatus paymentStatus) {
         this.reservation = reservation;
         this.invoiceDate = invoiceDate;
         this.totalAmountEur = totalAmountEur;
@@ -50,7 +51,7 @@ public class Invoice {
     public String toString() {
         return "Invoice{" +
                 "invoiceId='" + invoiceId + '\'' +
-                ", reservation=" + reservation +
+                ", reservation=" + reservation.getReservationId() +
                 ", invoiceDate=" + invoiceDate +
                 ", totalAmountEur=" + totalAmountEur +
                 ", paymentStatus='" + paymentStatus + '\'' +

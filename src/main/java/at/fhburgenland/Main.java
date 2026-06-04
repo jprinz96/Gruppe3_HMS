@@ -22,6 +22,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+
         System.out.print("Gast-ID: ");
         String guestId = scanner.nextLine();
 

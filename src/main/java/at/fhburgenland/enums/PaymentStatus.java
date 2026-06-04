@@ -15,4 +15,20 @@ public enum PaymentStatus {
     public String getDbValue() {
         return dbValue;
     }
+
+    public static PaymentStatus fromString(String value) {
+        if (value == null || value.isBlank()) {
+            return OPEN;
+        }
+        for (PaymentStatus paymentStatus : values()) {
+            if (paymentStatus.name().equalsIgnoreCase(value)
+                    || paymentStatus.dbValue.equalsIgnoreCase(value)) {
+                return paymentStatus;
+            }
+        }
+
+        throw new IllegalArgumentException(
+                "Ungültige Payment-Status: " + value
+        );
+    }
 }
