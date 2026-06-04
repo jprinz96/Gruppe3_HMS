@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import java.math.BigDecimal;
 
@@ -15,7 +17,8 @@ import java.math.BigDecimal;
 public class Service {
 
     @Id
-    @Column(name = "service_id", length = 10)
+    @Generated(event = EventType.INSERT)
+    @Column(name = "service_id", length = 10, insertable = false, updatable = false)
     private String serviceId;
 
     @Setter
@@ -33,8 +36,7 @@ public class Service {
     protected Service() {
     }
 
-    public Service(String serviceId, String name, String description, BigDecimal priceEur) {
-        this.serviceId = serviceId;
+    public Service(String name, String description, BigDecimal priceEur) {
         this.name = name;
         this.description = description;
         this.priceEur = priceEur;

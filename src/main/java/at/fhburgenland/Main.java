@@ -1,86 +1,105 @@
 package at.fhburgenland;
 
 import at.fhburgenland.entity.*;
+import at.fhburgenland.enums.RoomCategory;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 
 public class Main {
 
+    private final static EntityManagerFactory emf = Persistence.createEntityManagerFactory("Gruppe3_HMS");
+
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Gruppe3_HMS");
         EntityManager em = emf.createEntityManager();
 
-        printZips(em);
-        printGuests(em);
-        printRooms(em);
-        printReservations(em);
+        Scanner scanner = new Scanner(System.in);
 
-        em.close();
-        emf.close();
-    }
+        System.out.print("Zimmer-ID: ");
+        String roomId = scanner.nextLine();
 
-    private static void printZips(EntityManager em) {
-        System.out.println("\n--- ZIP ---");
+        System.out.print("Zimmernummer: ");
+        int roomNumber = Integer.parseInt(scanner.nextLine());
 
-        List<Zip> zips = em.createQuery("select z from Zip z", Zip.class)
-                .getResultList();
+        System.out.print("Kategorie (Standard, Deluxe oder Suite): ");
+        RoomCategory category = RoomCategory.fromString(scanner.nextLine());
 
-        for (Zip zip : zips) {
-            System.out.println(zip.getZipcode() + " - " + zip.getCity());
-        }
-    }
+        System.out.print("Preis pro Nacht: ");
+        BigDecimal price = new BigDecimal(scanner.nextLine().replace(',', '.'));
 
-    private static void printGuests(EntityManager em) {
-        System.out.println("\n--- GUEST ---");
+        Room room = new Room(roomId, roomNumber, category, price);
 
-        List<Guest> guests = em.createQuery("select g from Guest g", Guest.class)
-                .getResultList();
+        em.getTransaction().begin();
+        em.persist(room);
+        em.getTransaction().commit();
 
-        for (Guest guest : guests) {
-            System.out.println(
-                    guest.getGuestId() + " - " +
-                            guest.getFirstname() + " " +
-                            guest.getLastname() + " - " +
-                            guest.getEmail() + " - " +
-                            guest.getZip().getZipcode() + " " +
-                            guest.getZip().getCity()
-            );
-        }
-    }
-
-    private static void printRooms(EntityManager em) {
-        System.out.println("\n--- ROOM ---");
-
-        List<Room> rooms = em.createQuery("select r from Room r", Room.class)
-                .getResultList();
-
-        for (Room room : rooms) {
-            System.out.println(
-                    room.getRoomId() + " - Zimmer " +
-                            room.getRoomNumber() + " - " +
-                            room.getCategory() + " - " +
-                            room.getPricePerNightEur() + " EUR"
-            );
-        }
-    }
-
-    private static void printReservations(EntityManager em) {
-        System.out.println("\n--- RESERVATION ---");
-
-        List<Reservation> reservations = em.createQuery("select r from Reservation r", Reservation.class)
-                .getResultList();
-
-        for (Reservation reservation : reservations) {
-            System.out.println(
-                    reservation.getReservationId() + " - " +
-                            reservation.getGuest().getFirstname() + " " +
-                            reservation.getGuest().getLastname() + " - " +
-                            reservation.getCheckinDate() + " bis " +
-                            reservation.getCheckoutDate() + " - " +
-                            reservation.getStatus()
-            );
+        System.out.println("Zimmer gespeichert: " + room.getRoomId());
+        List<Room> rooms = em.createQuery("SELECT r FROM Room r", Room.class).getResultList();
+        for (Room r : rooms) {
+            System.out.println(r);
         }
 
     }
+
+
 }
+
+//Tests
+        /*
+        try {
+            em.getTransaction().begin();
+
+            Zip zip = em.find(Zip.class, "12345");
+
+            if (zip == null) {
+                zip = new Zip("12345", "Velaris");
+                em.persist(zip);
+            }
+
+            Guest guest = new Guest(
+                    "Feyre",
+                    "Acheron",
+                    LocalDate.of(1990, 5, 15),
+                    "feyreLovesRhys@mail.com",
+                    null,
+                    "Starstreet",
+                    "1",
+                    zip
+            );
+
+            em.persist(guest);
+            em.getTransaction().commit();
+
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+
+            e.printStackTrace();
+        }
+
+        List<Guest> guests = em.createQuery("select g from Guest g", Guest.class).getResultList();
+        for (Guest g : guests) {
+            System.out.println(g);
+        }
+          List<Event> events = em.createQuery("select e from Event e", Event.class).getResultList();
+        for (Event e : events) {
+            System.out.println(e);
+        }
+         em.getTransaction().begin();
+        Room room = new Room("R401", 401, RoomCategory.Standard, new BigDecimal(90.5));
+        em.persist(room);
+        em.getTransaction().commit();
+
+       List<Room> rooms = em.createQuery("SELECT r FROM Room r", Room.class).getResultList();
+        for (Room r : rooms) {
+            System.out.println(r);
+
+        }
+        */

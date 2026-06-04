@@ -30,5 +30,13 @@ public class Zip {
         this.zipcode = zipcode;
         this.city = city;
     }
+
+    @Override
+    public String toString() {
+        return "Zip{" +
+                "city='" + city + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                '}';
+    }
 }
 

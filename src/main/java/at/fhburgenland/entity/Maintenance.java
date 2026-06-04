@@ -8,6 +8,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import java.time.LocalDate;
 
@@ -17,7 +19,8 @@ import java.time.LocalDate;
 public class Maintenance {
 
     @Id
-    @Column(name = "maintenance_id", length = 10)
+    @Generated(event = EventType.INSERT)
+    @Column(name = "maintenance_id", length = 10, insertable = false, updatable = false)
     private String maintenanceId;
 
     @Setter
@@ -45,9 +48,7 @@ public class Maintenance {
     protected Maintenance() {
     }
 
-    public Maintenance(String maintenanceId, Staff staff, Room room, LocalDate maintenanceDate,
-                       String description, String status) {
-        this.maintenanceId = maintenanceId;
+    public Maintenance(Staff staff, Room room, LocalDate maintenanceDate, String description, String status) {
         this.staff = staff;
         this.room = room;
         this.maintenanceDate = maintenanceDate;

@@ -1,14 +1,11 @@
 package at.fhburgenland.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import at.fhburgenland.enums.EventStatus;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,7 +17,8 @@ import java.util.List;
 public class Event {
 
     @Id
-    @Column(name = "event_id", length = 10)
+    @Generated(event = EventType.INSERT)
+    @Column(name = "event_id", length = 10, insertable = false, updatable = false)
     private String eventId;
 
     @Setter
@@ -36,8 +34,9 @@ public class Event {
     private int minParticipants;
 
     @Setter
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
-    private String status;
+    private EventStatus status;
 
     @ManyToMany
     @JoinTable(
@@ -58,12 +57,22 @@ public class Event {
     protected Event() {
     }
 
-    public Event(String eventId, String title, LocalDate eventDate,
-                 int minParticipants, String status) {
-        this.eventId = eventId;
+    public Event( String title, LocalDate eventDate, int minParticipants, EventStatus status) {
         this.title = title;
         this.eventDate = eventDate;
         this.minParticipants = minParticipants;
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "eventId='" + eventId + '\'' +
+                ", title='" + title + '\'' +
+                ", eventDate=" + eventDate +
+                ", minParticipants=" + minParticipants +
+                ", status='" + status + '\'' +
+                ", staffMembers=" + staffMembers +
+                '}';
     }
 }

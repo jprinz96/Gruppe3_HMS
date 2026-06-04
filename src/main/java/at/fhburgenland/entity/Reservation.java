@@ -3,6 +3,8 @@ package at.fhburgenland.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,8 +15,10 @@ import java.util.List;
 @Table(name = "reservation")
 public class Reservation {
 
+
     @Id
-    @Column(name = "reservation_id", length = 20)
+    @Generated(event = EventType.INSERT)
+    @Column(name = "reservation_id", length = 20, insertable = false, updatable = false)
     private String reservationId;
 
     @Setter
@@ -45,12 +49,21 @@ public class Reservation {
     protected Reservation() {
     }
 
-    public Reservation(String reservationId, Guest guest, LocalDate checkinDate,
-                       LocalDate checkoutDate, String status) {
-        this.reservationId = reservationId;
+    public Reservation(Guest guest, LocalDate checkinDate, LocalDate checkoutDate, String status) {
         this.guest = guest;
         this.checkinDate = checkinDate;
         this.checkoutDate = checkoutDate;
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "reservationId='" + reservationId + '\'' +
+                ", guestId=" + guest +
+                ", checkinDate=" + checkinDate +
+                ", checkoutDate=" + checkoutDate +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

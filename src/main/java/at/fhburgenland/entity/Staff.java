@@ -3,6 +3,8 @@ package at.fhburgenland.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 @Getter
 @Entity
@@ -10,7 +12,8 @@ import lombok.Setter;
 public class Staff {
 
     @Id
-    @Column(name = "staff_id", length = 10)
+    @Generated(event = EventType.INSERT)
+    @Column(name = "staff_id", length = 10, insertable = false, updatable = false)
     private String staffId;
 
     @Setter
@@ -36,9 +39,7 @@ public class Staff {
     protected Staff() {
     }
 
-    public Staff(String staffId, String firstname, String lastname, String email,
-                 String phonenumber, String role) {
-        this.staffId = staffId;
+    public Staff(String firstname, String lastname, String email, String phonenumber, String role) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;

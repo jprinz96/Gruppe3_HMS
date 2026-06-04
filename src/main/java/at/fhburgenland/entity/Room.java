@@ -21,7 +21,6 @@ public class Room {
     private int roomNumber;
 
     @Setter
-    @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false, length = 20)
     private RoomCategory category;
 
@@ -32,6 +31,9 @@ public class Room {
     protected Room() {
     }
 
+
+
+
     public Room(String roomId, int roomNumber, RoomCategory category, BigDecimal pricePerNightEur) {
         this.roomId = roomId;
         this.roomNumber = roomNumber;
@@ -39,4 +41,13 @@ public class Room {
         this.pricePerNightEur = pricePerNightEur;
     }
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomId='" + roomId + '\'' +
+                ", roomNumber=" + roomNumber +
+                ", category=" + category +
+                ", pricePerNightEur=" + pricePerNightEur +
+                '}';
+    }
 }

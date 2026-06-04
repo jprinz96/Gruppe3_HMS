@@ -1,6 +1,8 @@
 package at.fhburgenland.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +14,8 @@ import java.time.LocalDate;
 public class Guest {
 
     @Id
-    @Column(name = "guest_id", length = 10)
+    @Generated(event = EventType.INSERT)
+    @Column(name = "guest_id", length = 10, insertable = false, updatable = false)
     private String guestId;
 
     @Setter
@@ -51,8 +54,7 @@ public class Guest {
     protected Guest() {
     }
 
-    public Guest(String guestId, String firstname, String lastname, LocalDate birthdate, String email, String phonenumber, String street, String houseNumber, Zip zip) {
-        this.guestId = guestId;
+    public Guest(String firstname, String lastname, LocalDate birthdate, String email, String phonenumber, String street, String houseNumber, Zip zip) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthdate = birthdate;

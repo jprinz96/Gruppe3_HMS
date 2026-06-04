@@ -3,6 +3,8 @@ package at.fhburgenland.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,7 +15,8 @@ import java.time.LocalDate;
 public class Invoice {
 
     @Id
-    @Column(name = "invoice_id", length = 20)
+    @Generated(event = EventType.INSERT)
+    @Column(name = "invoice_id", length = 20, insertable = false, updatable = false)
     private String invoiceId;
 
     @Setter
@@ -36,12 +39,21 @@ public class Invoice {
     protected Invoice() {
     }
 
-    public Invoice(String invoiceId, Reservation reservation, LocalDate invoiceDate,
-                   BigDecimal totalAmountEur, String paymentStatus) {
-        this.invoiceId = invoiceId;
+    public Invoice(Reservation reservation, LocalDate invoiceDate, BigDecimal totalAmountEur, String paymentStatus) {
         this.reservation = reservation;
         this.invoiceDate = invoiceDate;
         this.totalAmountEur = totalAmountEur;
         this.paymentStatus = paymentStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "invoiceId='" + invoiceId + '\'' +
+                ", reservation=" + reservation +
+                ", invoiceDate=" + invoiceDate +
+                ", totalAmountEur=" + totalAmountEur +
+                ", paymentStatus='" + paymentStatus + '\'' +
+                '}';
     }
 }
