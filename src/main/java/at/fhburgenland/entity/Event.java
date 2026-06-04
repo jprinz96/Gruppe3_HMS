@@ -34,9 +34,8 @@ public class Event {
     private int minParticipants;
 
     @Setter
-    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
-    private EventStatus status;
+    private EventStatus eventStatus;
 
     @ManyToMany
     @JoinTable(
@@ -57,11 +56,11 @@ public class Event {
     protected Event() {
     }
 
-    public Event( String title, LocalDate eventDate, int minParticipants, EventStatus status) {
+    public Event(String title, LocalDate eventDate, int minParticipants, EventStatus eventStatus) {
         this.title = title;
         this.eventDate = eventDate;
         this.minParticipants = minParticipants;
-        this.status = status;
+        this.eventStatus = eventStatus;
     }
 
     @Override
@@ -71,8 +70,7 @@ public class Event {
                 ", title='" + title + '\'' +
                 ", eventDate=" + eventDate +
                 ", minParticipants=" + minParticipants +
-                ", status='" + status + '\'' +
-                ", staffMembers=" + staffMembers +
+                ", status='" + eventStatus + '\'' +
                 '}';
     }
 }

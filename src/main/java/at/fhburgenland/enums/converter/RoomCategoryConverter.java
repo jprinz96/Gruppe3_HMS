@@ -1,12 +1,11 @@
-package at.fhburgenland.converter;
+package at.fhburgenland.enums.converter;
 
 import at.fhburgenland.enums.RoomCategory;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
-public class RoomCategoryConverter
-        implements AttributeConverter<RoomCategory, String> {
+public class RoomCategoryConverter implements AttributeConverter<RoomCategory, String> {
 
     @Override
     public String convertToDatabaseColumn(RoomCategory category) {

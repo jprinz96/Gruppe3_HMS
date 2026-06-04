@@ -15,4 +15,17 @@ public enum EventStatus {
     public String getDbValue() {
         return dbValue;
     }
+
+    public static EventStatus fromString(String value) {
+        for (EventStatus eventStatus : values()) {
+            if (eventStatus.name().equalsIgnoreCase(value)
+                    || eventStatus.dbValue.equalsIgnoreCase(value)) {
+                return eventStatus;
+            }
+        }
+
+        throw new IllegalArgumentException(
+                "Ungültige Event-Status: " + value
+        );
+    }
 }

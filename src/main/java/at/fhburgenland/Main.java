@@ -1,6 +1,7 @@
 package at.fhburgenland;
 
 import at.fhburgenland.entity.*;
+import at.fhburgenland.enums.EventStatus;
 import at.fhburgenland.enums.RoomCategory;
 import jakarta.persistence.*;
 
@@ -20,29 +21,8 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Zimmer-ID: ");
-        String roomId = scanner.nextLine();
 
-        System.out.print("Zimmernummer: ");
-        int roomNumber = Integer.parseInt(scanner.nextLine());
 
-        System.out.print("Kategorie (Standard, Deluxe oder Suite): ");
-        RoomCategory category = RoomCategory.fromString(scanner.nextLine());
-
-        System.out.print("Preis pro Nacht: ");
-        BigDecimal price = new BigDecimal(scanner.nextLine().replace(',', '.'));
-
-        Room room = new Room(roomId, roomNumber, category, price);
-
-        em.getTransaction().begin();
-        em.persist(room);
-        em.getTransaction().commit();
-
-        System.out.println("Zimmer gespeichert: " + room.getRoomId());
-        List<Room> rooms = em.createQuery("SELECT r FROM Room r", Room.class).getResultList();
-        for (Room r : rooms) {
-            System.out.println(r);
-        }
 
     }
 
@@ -51,6 +31,7 @@ public class Main {
 
 //Tests
         /*
+//Guest
         try {
             em.getTransaction().begin();
 
@@ -88,10 +69,8 @@ public class Main {
         for (Guest g : guests) {
             System.out.println(g);
         }
-          List<Event> events = em.createQuery("select e from Event e", Event.class).getResultList();
-        for (Event e : events) {
-            System.out.println(e);
-        }
+
+//Room
          em.getTransaction().begin();
         Room room = new Room("R401", 401, RoomCategory.Standard, new BigDecimal(90.5));
         em.persist(room);
@@ -101,5 +80,30 @@ public class Main {
         for (Room r : rooms) {
             System.out.println(r);
 
+        }
+
+//Event
+                System.out.print("Event titel: ");
+        String title = scanner.nextLine();
+
+        System.out.print("Event Date: ");
+        LocalDate eventDate = LocalDate.parse(scanner.nextLine());
+
+        System.out.print("Min Participants: ");
+        int  minParticipants = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("event status: ");
+        EventStatus eventStatus = EventStatus.fromString(scanner.nextLine());
+
+        Event event = new Event(title, eventDate, minParticipants, eventStatus);
+
+        em.getTransaction().begin();
+        em.persist(event);
+        em.getTransaction().commit();
+
+        List<Event> events = em.createQuery("SELECT e FROM Event e", Event.class).getResultList();
+        for (Event e : events) {
+            System.out.println(e);
         }
         */
