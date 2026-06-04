@@ -56,4 +56,16 @@ public class ServiceBooking {
         this.bookingDate = bookingDate;
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceBooking{" +
+                "serviceBookingId='" + serviceBookingId + '\'' +
+                ", reservation=" + reservation.getReservationId() +
+                ", service=" + service.getServiceId() +
+                ", staff=" + (staff != null ? staff.getStaffId() : null) +
+                ", bookingDate=" + bookingDate +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

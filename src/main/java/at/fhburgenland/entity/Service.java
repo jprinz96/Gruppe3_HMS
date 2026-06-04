@@ -41,4 +41,14 @@ public class Service {
         this.description = description;
         this.priceEur = priceEur;
     }
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "serviceId='" + serviceId + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", priceEur=" + priceEur +
+                '}';
+    }
 }
