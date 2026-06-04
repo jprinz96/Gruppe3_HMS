@@ -1,17 +1,14 @@
 package at.fhburgenland.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import at.fhburgenland.enums.MaintenanceStatus;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Entity
@@ -43,16 +40,29 @@ public class Maintenance {
 
     @Setter
     @Column(name = "status", nullable = false, length = 20)
-    private String status;
+    private MaintenanceStatus maintenanceStatus;
 
     protected Maintenance() {
     }
 
-    public Maintenance(Staff staff, Room room, LocalDate maintenanceDate, String description, String status) {
+    public Maintenance(Staff staff, Room room, LocalDate maintenanceDate, String description, MaintenanceStatus maintenanceStatus) {
         this.staff = staff;
         this.room = room;
         this.maintenanceDate = maintenanceDate;
         this.description = description;
-        this.status = status;
+        this.maintenanceStatus = maintenanceStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Maintenance{" +
+                "maintenanceId='" + maintenanceId + '\'' +
+                ", staff=" + staff.getStaffId() +
+                ", room=" + room.getRoomId() +
+                ", maintenanceDate=" + maintenanceDate +
+                ", description='" + description + '\'' +
+                ", maintenanceStatus=" + maintenanceStatus +
+                '}';
+    }
+
 }

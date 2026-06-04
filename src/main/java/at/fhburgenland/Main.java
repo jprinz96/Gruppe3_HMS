@@ -2,6 +2,7 @@ package at.fhburgenland;
 
 import at.fhburgenland.entity.*;
 import at.fhburgenland.enums.EventStatus;
+import at.fhburgenland.enums.MaintenanceStatus;
 import at.fhburgenland.enums.ReservationStatus;
 import at.fhburgenland.enums.RoomCategory;
 import jakarta.persistence.*;
@@ -22,46 +23,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-
-        System.out.print("Gast-ID: ");
-        String guestId = scanner.nextLine();
-
-        Guest guest = em.find(Guest.class, guestId);
-
-        if (guest == null) {
-            throw new IllegalArgumentException("Gast nicht gefunden: " + guestId);
-        }
-
-        System.out.print("Check-in Datum: ");
-        LocalDate checkinDate = LocalDate.parse(scanner.nextLine());
-
-        System.out.print("Check-out Datum: ");
-        LocalDate checkoutDate = LocalDate.parse(scanner.nextLine());
-
-        System.out.print("Status: ");
-        ReservationStatus status =
-                ReservationStatus.fromString(scanner.nextLine().trim());
-
-        Reservation reservation = new Reservation(
-                guest,
-                checkinDate,
-                checkoutDate,
-                status
-        );
-
-        em.getTransaction().begin();
-        em.persist(reservation);
-        em.getTransaction().commit();
-
-
-        List<Reservation> reservations = em.createQuery("SELECT r FROM Reservation r", Reservation.class).getResultList();
-        for (Reservation r : reservations) {
-            System.out.println(r);
-        }
-
-
     }
-
 
 }
 
@@ -178,5 +140,60 @@ public class Main {
         List<Reservation> reservations = em.createQuery("SELECT r FROM Reservation r", Reservation.class).getResultList();
         for (Reservation r : reservations) {
             System.out.println(r);
+        }
+
+
+//Maintenance
+        System.out.print("Mitarbeiter-ID: ");
+        String staffId = scanner.nextLine();
+
+        Staff staff = em.find(Staff.class, staffId);
+
+        if (staff == null) {
+            throw new IllegalArgumentException(
+                    "Mitarbeiter nicht gefunden: " + staffId
+            );
+        }
+
+        System.out.print("Zimmer-ID: ");
+        String roomId = scanner.nextLine();
+
+        Room room = em.find(Room.class, roomId);
+
+        if (room == null) {
+            throw new IllegalArgumentException(
+                    "Zimmer nicht gefunden: " + roomId
+            );
+        }
+
+        System.out.print("Wartungsdatum (YYYY-MM-DD): ");
+        LocalDate maintenanceDate = LocalDate.parse(scanner.nextLine());
+
+        System.out.print("Beschreibung: ");
+        String description = scanner.nextLine();
+
+        System.out.print("Status [Enter = open]: ");
+        MaintenanceStatus status =
+                MaintenanceStatus.fromString(scanner.nextLine());
+
+        Maintenance maintenance = new Maintenance(
+                staff,
+                room,
+                maintenanceDate,
+                description,
+                status
+        );
+
+        em.getTransaction().begin();
+        em.persist(maintenance);
+        em.getTransaction().commit();
+
+        System.out.println("Gespeichert: " + maintenance);
+
+        List<Maintenance> maintenances = em.createQuery("SELECT m FROM Maintenance m", Maintenance.class).getResultList();
+        for (Maintenance m : maintenances) {
+            System.out.println(m);
+
+
         }
         */
