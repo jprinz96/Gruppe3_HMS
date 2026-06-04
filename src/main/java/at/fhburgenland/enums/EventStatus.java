@@ -17,6 +17,9 @@ public enum EventStatus {
     }
 
     public static EventStatus fromString(String value) {
+        if (value == null || value.isBlank()) {
+            return PLANNED;
+        }
         for (EventStatus eventStatus : values()) {
             if (eventStatus.name().equalsIgnoreCase(value)
                     || eventStatus.dbValue.equalsIgnoreCase(value)) {

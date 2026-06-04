@@ -1,5 +1,6 @@
 package at.fhburgenland.entity;
 
+import at.fhburgenland.enums.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +37,7 @@ public class Reservation {
 
     @Setter
     @Column(name = "status", nullable = false, length = 20)
-    private String status;
+    private ReservationStatus status;
 
     @ManyToMany
     @JoinTable(
@@ -49,7 +50,7 @@ public class Reservation {
     protected Reservation() {
     }
 
-    public Reservation(Guest guest, LocalDate checkinDate, LocalDate checkoutDate, String status) {
+    public Reservation(Guest guest, LocalDate checkinDate, LocalDate checkoutDate, ReservationStatus status) {
         this.guest = guest;
         this.checkinDate = checkinDate;
         this.checkoutDate = checkoutDate;
@@ -60,7 +61,7 @@ public class Reservation {
     public String toString() {
         return "Reservation{" +
                 "reservationId='" + reservationId + '\'' +
-                ", guestId=" + guest +
+                ", guestId=" + guest.getGuestId() +
                 ", checkinDate=" + checkinDate +
                 ", checkoutDate=" + checkoutDate +
                 ", status='" + status + '\'' +

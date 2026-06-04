@@ -2,6 +2,7 @@ package at.fhburgenland;
 
 import at.fhburgenland.entity.*;
 import at.fhburgenland.enums.EventStatus;
+import at.fhburgenland.enums.ReservationStatus;
 import at.fhburgenland.enums.RoomCategory;
 import jakarta.persistence.*;
 
@@ -21,7 +22,41 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        System.out.print("Gast-ID: ");
+        String guestId = scanner.nextLine();
 
+        Guest guest = em.find(Guest.class, guestId);
+
+        if (guest == null) {
+            throw new IllegalArgumentException("Gast nicht gefunden: " + guestId);
+        }
+
+        System.out.print("Check-in Datum: ");
+        LocalDate checkinDate = LocalDate.parse(scanner.nextLine());
+
+        System.out.print("Check-out Datum: ");
+        LocalDate checkoutDate = LocalDate.parse(scanner.nextLine());
+
+        System.out.print("Status: ");
+        ReservationStatus status =
+                ReservationStatus.fromString(scanner.nextLine().trim());
+
+        Reservation reservation = new Reservation(
+                guest,
+                checkinDate,
+                checkoutDate,
+                status
+        );
+
+        em.getTransaction().begin();
+        em.persist(reservation);
+        em.getTransaction().commit();
+
+
+        List<Reservation> reservations = em.createQuery("SELECT r FROM Reservation r", Reservation.class).getResultList();
+        for (Reservation r : reservations) {
+            System.out.println(r);
+        }
 
 
     }
@@ -105,5 +140,42 @@ public class Main {
         List<Event> events = em.createQuery("SELECT e FROM Event e", Event.class).getResultList();
         for (Event e : events) {
             System.out.println(e);
+        }
+
+//Reservation
+        System.out.print("Gast-ID: ");
+        String guestId = scanner.nextLine();
+
+        Guest guest = em.find(Guest.class, guestId);
+
+        if (guest == null) {
+            throw new IllegalArgumentException("Gast nicht gefunden: " + guestId);
+        }
+
+        System.out.print("Check-in Datum: ");
+        LocalDate checkinDate = LocalDate.parse(scanner.nextLine());
+
+        System.out.print("Check-out Datum: ");
+        LocalDate checkoutDate = LocalDate.parse(scanner.nextLine());
+
+        System.out.print("Status: ");
+        ReservationStatus status =
+                ReservationStatus.fromString(scanner.nextLine().trim());
+
+        Reservation reservation = new Reservation(
+                guest,
+                checkinDate,
+                checkoutDate,
+                status
+        );
+
+        em.getTransaction().begin();
+        em.persist(reservation);
+        em.getTransaction().commit();
+
+
+        List<Reservation> reservations = em.createQuery("SELECT r FROM Reservation r", Reservation.class).getResultList();
+        for (Reservation r : reservations) {
+            System.out.println(r);
         }
         */

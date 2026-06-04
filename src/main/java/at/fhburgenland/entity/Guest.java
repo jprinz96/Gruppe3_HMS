@@ -76,7 +76,7 @@ public class Guest {
                 ", phonenumber='" + phonenumber + '\'' +
                 ", street='" + street + '\'' +
                 ", houseNumber='" + houseNumber + '\'' +
-                ", zip=" + zip +
+                ", zip=" + zip.getZipcode() +
                 '}';
     }
 }

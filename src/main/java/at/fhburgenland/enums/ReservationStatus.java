@@ -15,4 +15,20 @@ public enum ReservationStatus {
     public String getDbValue() {
         return dbValue;
     }
+
+    public static ReservationStatus fromString(String value) {
+        if (value == null || value.isBlank()) {
+            return BOOKED;
+        }
+        for (ReservationStatus reservationStatus : values()) {
+            if (reservationStatus.name().equalsIgnoreCase(value)
+                    || reservationStatus.dbValue.equalsIgnoreCase(value)) {
+                return reservationStatus;
+            }
+        }
+
+        throw new IllegalArgumentException(
+                "Ungültige Reservation-Status: " + value
+        );
+    }
 }
