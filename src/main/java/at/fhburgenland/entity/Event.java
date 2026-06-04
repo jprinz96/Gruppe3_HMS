@@ -9,7 +9,9 @@ import org.hibernate.generator.EventType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Entity
@@ -43,7 +45,7 @@ public class Event {
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "guest_id")
     )
-    private List<Guest> guests = new ArrayList<>();
+    private Set<Guest> guests = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -51,7 +53,7 @@ public class Event {
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "staff_id")
     )
-    private List<Staff> staffMembers = new ArrayList<>();
+    private Set<Staff> staffMembers = new HashSet<>();
 
     protected Event() {
     }

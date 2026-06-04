@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Entity
@@ -21,7 +23,7 @@ public class Zip {
     private String city;
 
     @OneToMany(mappedBy = "zip")
-    private List<Guest> guests = new ArrayList<>();
+    private Set<Guest> guests = new HashSet<>();
 
     protected Zip() {
     }
