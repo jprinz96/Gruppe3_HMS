@@ -1,6 +1,7 @@
 --Drop
-drop table if exists zip;
+
 drop table if exists guest;
+drop table if exists zip;
 drop table if exists room;
 drop table if exists reservation;
 drop table if exists room_reservation;
@@ -78,7 +79,7 @@ create table reservation (
     room_id varchar(10) not null references room(room_id),
 
     primary key (reservation_id, room_id)
- )
+ );
 
 create table invoice (
     invoice_id varchar(20) primary key

@@ -19,13 +19,7 @@
         <class>at.fhburgenland.entity.Service</class>
         <class>at.fhburgenland.entity.ServiceBooking</class>
         <class>at.fhburgenland.entity.Zip</class>
-
-        <!-- Enums -->
-        <class>at.fhburgenland.enums.EventStatus</class>
-        <class>at.fhburgenland.enums.MaintenanceStatus</class>
-        <class>at.fhburgenland.enums.PaymentStatus</class>
-        <class>at.fhburgenland.enums.ReservationStatus</class>
-        <class>at.fhburgenland.enums.RoomCategory</class>
+        
 
         <properties>
             <!-- Driver für die DB -->
